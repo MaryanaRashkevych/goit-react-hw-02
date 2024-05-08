@@ -4,6 +4,7 @@ import Description from './Description/Description'
 import css from "./App.module.css"
 import Options from './Options/Options'
 import Feedback from './Feedback/Feedback'
+import Notification from './Notification/Notification'
 
 
 export default function App() {
@@ -18,7 +19,7 @@ export default function App() {
   );
 
   useEffect(() => {
-    // Update local storage whenever the feedback state changes
+    
     localStorage.setItem('feedback', JSON.stringify(feedback));
   }, [feedback]);
 const updateFeedback = (feedbackType) =>{
@@ -28,8 +29,6 @@ const updateFeedback = (feedbackType) =>{
   });   
 }
 const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
-
-const notification = 'There is no feedback yet.'
 
 const handleReset = () => {
   setFeedback(initialState);
@@ -42,7 +41,7 @@ const positiveFeedback = Math.round((feedback.good / totalFeedback) * 100);
     <div className={css.container}>
     <Description/>
     <Options updateFeedback={updateFeedback} handleReset={handleReset} totalFeedback={totalFeedback} />
-    {totalFeedback > 0 ? <Feedback feedback={feedback} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback}/> : notification}
+    {totalFeedback > 0 ? <Feedback feedback={feedback} totalFeedback={totalFeedback} positiveFeedback={positiveFeedback}/> : <Notification/>}
     </div>
   )
 }
